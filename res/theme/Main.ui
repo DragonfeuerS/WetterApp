@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<component type="Form" name="Main" cloudDestinationProperty="Main" layout="BorderLayout" borderLayoutAbsoluteCenter="false" title="Wetter" >
+  <component type="Container" name="Container" cloudDestinationProperty="Container" layout="BorderLayout" borderLayoutAbsoluteCenter="false" >
+    <layoutConstraint value="North" />
+    <component type="Label" name="Ort" cloudDestinationProperty="Ort" text="Ort" >
+      <layoutConstraint value="North" />
+    </component>
+    <component type="Label" name="Wetter" cloudDestinationProperty="Wetter" text="wetter" >
+      <layoutConstraint value="East" />
+    </component>
+    <component type="Label" name="temp" cloudDestinationProperty="temp" text="C" >
+      <layoutConstraint value="Center" />
+    </component>
+    <component type="Button" name="refresh" cloudDestinationProperty="refresh" text="Refresh" >
+      <layoutConstraint value="South" />
+    </component>
+  </component>
+</component>
