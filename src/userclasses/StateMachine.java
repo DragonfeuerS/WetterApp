@@ -7,10 +7,16 @@
 
 package userclasses;
 
+import com.codename1.io.rest.Response;
+import com.codename1.io.rest.Rest;
+import com.codename1.location.Location;
+import com.codename1.location.LocationManager;
 import generated.StateMachineBase;
 import com.codename1.ui.*; 
 import com.codename1.ui.events.*;
+import static com.codename1.ui.events.ActionEvent.Type.Response;
 import com.codename1.ui.util.Resources;
+import java.util.Map;
 
 /**
  *
@@ -28,6 +34,7 @@ public class StateMachine extends StateMachineBase {
      * the constructor/class scope to avoid race conditions
      */
     protected void initVars(Resources res) {
+        Location position = LocationManager.getLocationManager().getCurrentLocationSync();
     }
 
 
@@ -38,7 +45,24 @@ public class StateMachine extends StateMachineBase {
 
     @Override
     protected void onMain_RefreshAction(Component c, ActionEvent event) {
-        showForm("Main", BoxLayout);
+        Location position = LocationManager.getLocationManager().getCurrentLocationSync();
+        String lat = Double.toString(position.getLatitude());
+        String lon = Double.toString(position.getLongitude());
+        String myUrl = "http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&appid=891ce0a8cb808764ee9ab6a0bbb52187";
+        Response<Map> jsonData = Rest.get(myUrl).getAsJsonMap();
+
+        Map tempData = (Map) jsonData.getResponseData().get("main");
+        double temperature = (double)tempData.get("temp");
+        double cTemp = temperature -273.15;
+        int l = (int) cTemp;
+        findTemp().setText(Integer.toString(l) + "C");
+        
+        String cityData = (String) jsonData.getResponseData().get("name");
+        findOrt().setText(cityData);
+        
+        Map wetterData = (Map) jsonData.getResponseData().get("weather");
+        String wetter = (String) wetterData.get("main");
+        findWetter().setText(wetter);
         
     }
 }
