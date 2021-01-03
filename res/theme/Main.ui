@@ -16,4 +16,7 @@
       <layoutConstraint value="South" />
     </component>
   </component>
+  <component type="Button" name="seite2" cloudDestinationProperty="seite2" text="Anderer Ort" >
+    <layoutConstraint value="Center" />
+  </component>
 </component>

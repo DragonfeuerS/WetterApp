@@ -6,4 +6,5 @@
     <theme name="Theme">
         <val key="@includeNativeBool" value="true" />
     </theme>
+    <ui name="WetterOrt" />
 </resource>

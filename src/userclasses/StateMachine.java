@@ -7,6 +7,7 @@
 
 package userclasses;
 
+import bbbaden.LB.java.Information;
 import com.codename1.io.rest.Response;
 import com.codename1.io.rest.Rest;
 import com.codename1.location.Location;
@@ -34,7 +35,7 @@ public class StateMachine extends StateMachineBase {
      * the constructor/class scope to avoid race conditions
      */
     protected void initVars(Resources res) {
-        Location position = LocationManager.getLocationManager().getCurrentLocationSync();
+        
     }
 
 
@@ -45,24 +46,33 @@ public class StateMachine extends StateMachineBase {
 
     @Override
     protected void onMain_RefreshAction(Component c, ActionEvent event) {
-        Location position = LocationManager.getLocationManager().getCurrentLocationSync();
-        String lat = Double.toString(position.getLatitude());
-        String lon = Double.toString(position.getLongitude());
-        String myUrl = "http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&appid=891ce0a8cb808764ee9ab6a0bbb52187";
-        Response<Map> jsonData = Rest.get(myUrl).getAsJsonMap();
-
-        Map tempData = (Map) jsonData.getResponseData().get("main");
-        double temperature = (double)tempData.get("temp");
-        double cTemp = temperature -273.15;
-        int l = (int) cTemp;
-        findTemp().setText(Integer.toString(l) + "C");
+        Information info = new Information();
+        info.refresh();
         
-        String cityData = (String) jsonData.getResponseData().get("name");
-        findOrt().setText(cityData);
+        findTemp().setText(info.getTemp() + "C");
         
-        Map wetterData = (Map) jsonData.getResponseData().get("weather");
-        String wetter = (String) wetterData.get("main");
-        findWetter().setText(wetter);
+        findOrt().setText(info.getCityData());
+        
+        findWetter().setText(info.getWetter());
         
     }
+
+    @Override
+    protected void onWetterOrt_AusgebenAction(Component c, ActionEvent event) {
+        Information info = new Information();
+        
+        info.setCity(findTextArea().getText());
+        info.cityWetter();
+        findTempLbl().setText(info.getTemp() + "C");
+        findWetterLbl().setText(info.getWetter());
+        
+        
+    }
+
+    @Override
+    protected void onMain_Seite2Action(Component c, ActionEvent event) {
+        showForm("WetterOrt", null);
+    }
+
+    
 }

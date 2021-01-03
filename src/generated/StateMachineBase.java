@@ -34,8 +34,9 @@ public abstract class StateMachineBase extends UIBuilder {
     public Container startApp(Resources res, String resPath, boolean loadTheme) {
         initVars();
         UIBuilder.registerCustomComponent("Container", com.codename1.ui.Container.class);
-        UIBuilder.registerCustomComponent("Button", com.codename1.ui.Button.class);
         UIBuilder.registerCustomComponent("Form", com.codename1.ui.Form.class);
+        UIBuilder.registerCustomComponent("TextArea", com.codename1.ui.TextArea.class);
+        UIBuilder.registerCustomComponent("Button", com.codename1.ui.Button.class);
         UIBuilder.registerCustomComponent("Dialog", com.codename1.ui.Dialog.class);
         UIBuilder.registerCustomComponent("Label", com.codename1.ui.Label.class);
         UIBuilder.registerCustomComponent("TextField", com.codename1.ui.TextField.class);
@@ -74,8 +75,9 @@ public abstract class StateMachineBase extends UIBuilder {
     public Container createWidget(Resources res, String resPath, boolean loadTheme) {
         initVars();
         UIBuilder.registerCustomComponent("Container", com.codename1.ui.Container.class);
-        UIBuilder.registerCustomComponent("Button", com.codename1.ui.Button.class);
         UIBuilder.registerCustomComponent("Form", com.codename1.ui.Form.class);
+        UIBuilder.registerCustomComponent("TextArea", com.codename1.ui.TextArea.class);
+        UIBuilder.registerCustomComponent("Button", com.codename1.ui.Button.class);
         UIBuilder.registerCustomComponent("Dialog", com.codename1.ui.Dialog.class);
         UIBuilder.registerCustomComponent("Label", com.codename1.ui.Label.class);
         UIBuilder.registerCustomComponent("TextField", com.codename1.ui.TextField.class);
@@ -152,6 +154,30 @@ public abstract class StateMachineBase extends UIBuilder {
         return cmp;
     }
 
+    public com.codename1.ui.Label findTempLbl(Component root) {
+        return (com.codename1.ui.Label)findByName("Temp_lbl", root);
+    }
+
+    public com.codename1.ui.Label findTempLbl() {
+        com.codename1.ui.Label cmp = (com.codename1.ui.Label)findByName("Temp_lbl", Display.getInstance().getCurrent());
+        if(cmp == null && aboutToShowThisContainer != null) {
+            cmp = (com.codename1.ui.Label)findByName("Temp_lbl", aboutToShowThisContainer);
+        }
+        return cmp;
+    }
+
+    public com.codename1.ui.TextArea findTextArea(Component root) {
+        return (com.codename1.ui.TextArea)findByName("TextArea", root);
+    }
+
+    public com.codename1.ui.TextArea findTextArea() {
+        com.codename1.ui.TextArea cmp = (com.codename1.ui.TextArea)findByName("TextArea", Display.getInstance().getCurrent());
+        if(cmp == null && aboutToShowThisContainer != null) {
+            cmp = (com.codename1.ui.TextArea)findByName("TextArea", aboutToShowThisContainer);
+        }
+        return cmp;
+    }
+
     public com.codename1.ui.Label findLabel(Component root) {
         return (com.codename1.ui.Label)findByName("Label", root);
     }
@@ -224,6 +250,18 @@ public abstract class StateMachineBase extends UIBuilder {
         return cmp;
     }
 
+    public com.codename1.ui.Label findWetterLbl(Component root) {
+        return (com.codename1.ui.Label)findByName("Wetter_lbl", root);
+    }
+
+    public com.codename1.ui.Label findWetterLbl() {
+        com.codename1.ui.Label cmp = (com.codename1.ui.Label)findByName("Wetter_lbl", Display.getInstance().getCurrent());
+        if(cmp == null && aboutToShowThisContainer != null) {
+            cmp = (com.codename1.ui.Label)findByName("Wetter_lbl", aboutToShowThisContainer);
+        }
+        return cmp;
+    }
+
     public com.codename1.ui.Label findOrt(Component root) {
         return (com.codename1.ui.Label)findByName("Ort", root);
     }
@@ -232,6 +270,18 @@ public abstract class StateMachineBase extends UIBuilder {
         com.codename1.ui.Label cmp = (com.codename1.ui.Label)findByName("Ort", Display.getInstance().getCurrent());
         if(cmp == null && aboutToShowThisContainer != null) {
             cmp = (com.codename1.ui.Label)findByName("Ort", aboutToShowThisContainer);
+        }
+        return cmp;
+    }
+
+    public com.codename1.ui.Label findTitel(Component root) {
+        return (com.codename1.ui.Label)findByName("titel", root);
+    }
+
+    public com.codename1.ui.Label findTitel() {
+        com.codename1.ui.Label cmp = (com.codename1.ui.Label)findByName("titel", Display.getInstance().getCurrent());
+        if(cmp == null && aboutToShowThisContainer != null) {
+            cmp = (com.codename1.ui.Label)findByName("titel", aboutToShowThisContainer);
         }
         return cmp;
     }
@@ -260,7 +310,37 @@ public abstract class StateMachineBase extends UIBuilder {
         return cmp;
     }
 
+    public com.codename1.ui.Button findAusgeben(Component root) {
+        return (com.codename1.ui.Button)findByName("Ausgeben", root);
+    }
+
+    public com.codename1.ui.Button findAusgeben() {
+        com.codename1.ui.Button cmp = (com.codename1.ui.Button)findByName("Ausgeben", Display.getInstance().getCurrent());
+        if(cmp == null && aboutToShowThisContainer != null) {
+            cmp = (com.codename1.ui.Button)findByName("Ausgeben", aboutToShowThisContainer);
+        }
+        return cmp;
+    }
+
+    public com.codename1.ui.Button findSeite2(Component root) {
+        return (com.codename1.ui.Button)findByName("seite2", root);
+    }
+
+    public com.codename1.ui.Button findSeite2() {
+        com.codename1.ui.Button cmp = (com.codename1.ui.Button)findByName("seite2", Display.getInstance().getCurrent());
+        if(cmp == null && aboutToShowThisContainer != null) {
+            cmp = (com.codename1.ui.Button)findByName("seite2", aboutToShowThisContainer);
+        }
+        return cmp;
+    }
+
     protected void exitForm(Form f) {
+        if("WetterOrt".equals(f.getName())) {
+            exitWetterOrt(f);
+            aboutToShowThisContainer = null;
+            return;
+        }
+
         if("Login".equals(f.getName())) {
             exitLogin(f);
             aboutToShowThisContainer = null;
@@ -277,6 +357,10 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
+    protected void exitWetterOrt(Form f) {
+    }
+
+
     protected void exitLogin(Form f) {
     }
 
@@ -286,6 +370,12 @@ public abstract class StateMachineBase extends UIBuilder {
 
     protected void beforeShow(Form f) {
     aboutToShowThisContainer = f;
+        if("WetterOrt".equals(f.getName())) {
+            beforeWetterOrt(f);
+            aboutToShowThisContainer = null;
+            return;
+        }
+
         if("Login".equals(f.getName())) {
             beforeLogin(f);
             aboutToShowThisContainer = null;
@@ -302,6 +392,10 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
+    protected void beforeWetterOrt(Form f) {
+    }
+
+
     protected void beforeLogin(Form f) {
     }
 
@@ -311,6 +405,12 @@ public abstract class StateMachineBase extends UIBuilder {
 
     protected void beforeShowContainer(Container c) {
         aboutToShowThisContainer = c;
+        if("WetterOrt".equals(c.getName())) {
+            beforeContainerWetterOrt(c);
+            aboutToShowThisContainer = null;
+            return;
+        }
+
         if("Login".equals(c.getName())) {
             beforeContainerLogin(c);
             aboutToShowThisContainer = null;
@@ -327,6 +427,10 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
+    protected void beforeContainerWetterOrt(Container c) {
+    }
+
+
     protected void beforeContainerLogin(Container c) {
     }
 
@@ -335,6 +439,12 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
     protected void postShow(Form f) {
+        if("WetterOrt".equals(f.getName())) {
+            postWetterOrt(f);
+            aboutToShowThisContainer = null;
+            return;
+        }
+
         if("Login".equals(f.getName())) {
             postLogin(f);
             aboutToShowThisContainer = null;
@@ -351,6 +461,10 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
+    protected void postWetterOrt(Form f) {
+    }
+
+
     protected void postLogin(Form f) {
     }
 
@@ -359,6 +473,12 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
     protected void postShowContainer(Container c) {
+        if("WetterOrt".equals(c.getName())) {
+            postContainerWetterOrt(c);
+            aboutToShowThisContainer = null;
+            return;
+        }
+
         if("Login".equals(c.getName())) {
             postContainerLogin(c);
             aboutToShowThisContainer = null;
@@ -375,6 +495,10 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
+    protected void postContainerWetterOrt(Container c) {
+    }
+
+
     protected void postContainerLogin(Container c) {
     }
 
@@ -383,6 +507,12 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
     protected void onCreateRoot(String rootName) {
+        if("WetterOrt".equals(rootName)) {
+            onCreateWetterOrt();
+            aboutToShowThisContainer = null;
+            return;
+        }
+
         if("Login".equals(rootName)) {
             onCreateLogin();
             aboutToShowThisContainer = null;
@@ -399,6 +529,10 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
+    protected void onCreateWetterOrt() {
+    }
+
+
     protected void onCreateLogin() {
     }
 
@@ -408,6 +542,12 @@ public abstract class StateMachineBase extends UIBuilder {
 
     protected Hashtable getFormState(Form f) {
         Hashtable h = super.getFormState(f);
+        if("WetterOrt".equals(f.getName())) {
+            getStateWetterOrt(f, h);
+            aboutToShowThisContainer = null;
+            return h;
+        }
+
         if("Login".equals(f.getName())) {
             getStateLogin(f, h);
             aboutToShowThisContainer = null;
@@ -424,6 +564,10 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
+    protected void getStateWetterOrt(Form f, Hashtable h) {
+    }
+
+
     protected void getStateLogin(Form f, Hashtable h) {
     }
 
@@ -433,6 +577,12 @@ public abstract class StateMachineBase extends UIBuilder {
 
     protected void setFormState(Form f, Hashtable state) {
         super.setFormState(f, state);
+        if("WetterOrt".equals(f.getName())) {
+            setStateWetterOrt(f, state);
+            aboutToShowThisContainer = null;
+            return;
+        }
+
         if("Login".equals(f.getName())) {
             setStateLogin(f, state);
             aboutToShowThisContainer = null;
@@ -446,6 +596,10 @@ public abstract class StateMachineBase extends UIBuilder {
         }
 
             return;
+    }
+
+
+    protected void setStateWetterOrt(Form f, Hashtable state) {
     }
 
 
@@ -465,6 +619,16 @@ public abstract class StateMachineBase extends UIBuilder {
             c = c.getParent().getLeadParent();
         }
         if(rootContainerName == null) return;
+        if(rootContainerName.equals("WetterOrt")) {
+            if("TextArea".equals(c.getName())) {
+                onWetterOrt_TextAreaAction(c, event);
+                return;
+            }
+            if("Ausgeben".equals(c.getName())) {
+                onWetterOrt_AusgebenAction(c, event);
+                return;
+            }
+        }
         if(rootContainerName.equals("Login")) {
             if("usename".equals(c.getName())) {
                 onLogin_UsenameAction(c, event);
@@ -488,8 +652,18 @@ public abstract class StateMachineBase extends UIBuilder {
                 onMain_RefreshAction(c, event);
                 return;
             }
+            if("seite2".equals(c.getName())) {
+                onMain_Seite2Action(c, event);
+                return;
+            }
         }
     }
+
+      protected void onWetterOrt_TextAreaAction(Component c, ActionEvent event) {
+      }
+
+      protected void onWetterOrt_AusgebenAction(Component c, ActionEvent event) {
+      }
 
       protected void onLogin_UsenameAction(Component c, ActionEvent event) {
       }
@@ -504,6 +678,9 @@ public abstract class StateMachineBase extends UIBuilder {
       }
 
       protected void onMain_RefreshAction(Component c, ActionEvent event) {
+      }
+
+      protected void onMain_Seite2Action(Component c, ActionEvent event) {
       }
 
 }

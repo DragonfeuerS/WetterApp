@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<component type="Form" name="WetterOrt" cloudDestinationProperty="WetterOrt" layout="BoxLayout" boxLayoutAxis="Y" title="Wetter nach Ort" >
+  <component type="Label" name="titel" cloudDestinationProperty="titel" text="Ort Name eingeben:" >
+  </component>
+  <component type="TextArea" name="TextArea" cloudBoundProperty="text" cloudDestinationProperty="TextArea" text="" >
+  </component>
+  <component type="Button" name="Ausgeben" cloudDestinationProperty="Ausgeben" text="Ausgeben" >
+  </component>
+  <component type="Label" name="Temp_lbl" cloudDestinationProperty="Temp_lbl" text="Temperatur" >
+  </component>
+  <component type="Label" name="Wetter_lbl" cloudDestinationProperty="Wetter_lbl" text="Wetter" >
+  </component>
+</component>
